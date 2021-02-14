@@ -1,0 +1,16 @@
+#include "com_allgo_web_jni_TestJni.h"
+#include <stdio.h>
+
+
+JNIEXPORT void JNICALL Java_com_allgo_web_jni_TestJni_printHello(JNIEnv *env, jobject obj)
+{
+    printf("Hello World\n");
+    fflush(stdout);
+}
+
+JNIEXPORT void JNICALL Java_com_allgo_web_jni_TestJni_printString(JNIEnv *env, jobject obj, jstring string)
+{
+    const char *str = (*env)->GetStringUTFChars(env, string, 0); 
+    printf("Hello World : %s\n", str);
+    fflush(stdout);
+}
