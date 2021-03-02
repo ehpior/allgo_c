@@ -12,6 +12,7 @@
 //#include "real_cheg.h"
 //#include "real_program.h"
 
+#pragma pack(1)
 typedef struct kospi{
     int cnt;
     char code[6];
@@ -21,6 +22,7 @@ typedef struct kosdaq{
     int cnt;
     char code[6];
 }kosdaq;
+#pragma pack()
 
 /* 0 = read/write, 1 = read
 9 kospi_cnt, 99 kosdaq_cnt, 999 real_program, 9999 real_cheg */
