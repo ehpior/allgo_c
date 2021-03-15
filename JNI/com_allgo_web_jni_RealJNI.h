@@ -9,14 +9,6 @@ extern "C" {
 #endif
 /*
  * Class:     com_allgo_web_jni_RealJNI
- * Method:    updateCnt
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_allgo_web_jni_RealJNI_updateCnt
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_allgo_web_jni_RealJNI
  * Method:    updateRealCheg
  * Signature: ([Lcom/allgo/web/packet/RealCheg;)V
  */

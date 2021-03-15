@@ -9,26 +9,19 @@
 #include <wchar.h>
 #include <sys/shm.h>
 
-//#include "real_cheg.h"
-//#include "real_program.h"
+#include "real_cheg.h"
+#include "real_program.h"
 
-#pragma pack(1)
-typedef struct kospi{
-    int cnt;
-    char code[6];
-}kospi;
+#define REAL_CHEG_SHM 999
+#define REAL_PROGRAM_SHM 9999
 
-typedef struct kosdaq{
-    int cnt;
-    char code[6];
-}kosdaq;
-#pragma pack()
+#define SHM_READWRITE 0
+#define SHM_READ 1
 
-/* 0 = read/write, 1 = read
-9 kospi_cnt, 99 kosdaq_cnt, 999 real_program, 9999 real_cheg */
+char *shm_data = NULL;
+
+/* 0 = read/write, 1 = read */
 char *shm_get(key_t key, int size, int mode){
-
-    char *shm_data = NULL;
 
     int shmid = shmget((key_t)key, size, 0666|IPC_CREAT);
 	if( shmid == -1 ) {
@@ -45,47 +38,102 @@ char *shm_get(key_t key, int size, int mode){
 	return shm_data;
 }
 
-JNIEXPORT void JNICALL Java_com_allgo_web_jni_RealJNI_updateCnt(JNIEnv *env, jobject obj)
+real_cheg_data *cur_cheg_data;
+
+JNIEXPORT void JNICALL Java_com_allgo_web_jni_RealJNI_updateRealCheg(JNIEnv *env, jobject obj, jobjectArray stockArr)
 {
-    /*char *kospi_cnt_shm = shm_get(9, 10, 0);
-    char *kosdaq_cnt_shm = shm_get(99, 10, 0);
+    cur_cheg_data = (real_cheg_data*) shm_get(REAL_CHEG_SHM, sizeof(real_cheg_data), SHM_READ);
 
-    sprintf(kospi_cnt_shm, "%d", 1500);
-    sprintf(kosdaq_cnt_shm, "%d", 2500);*/
-
-
-    kospi *kospi_data = (kospi *)shm_get(9, sizeof(kospi), 0);
-    //kosdaq *kosdaq_data = (kosdaq *)shm_get(999, sizeof(kosdaq), 0);
-    if(kospi_data == NULL){
-        return ;
+    if(cur_cheg_data == NULL){
+        return;
     }
 
-    int kospi_cnt = kospi_data->cnt + 1;
-    //int kosdaq_cnt = kosdaq_data->cnt + 1;
+    char code[6+1];
+    int price = 0;
 
-    kospi_data->cnt = kospi_cnt;
-    //kosdaq_data->cnt = kosdaq_cnt;
+    jobject stockUnit;
+	jclass stockCls;
+	jfieldID fid;
+    jstring jStr;
 
-	jclass cls = (*env)->GetObjectClass(env, obj);
+    int i = 0;
+	for( i = 0; i < 3000; i++ ) {
+        real_cheg cur_cheg = cur_cheg_data->data[i];
 
-	jfieldID fid = (*env)->GetFieldID(env, cls, "kospi_cnt", "I");
-	(*env)->SetIntField(env, obj, fid, kospi_cnt);
+        memset(code, 0x00, sizeof(code));
+        memcpy(code, cur_cheg.code, 6);
+        price = cur_cheg.price;
 
-    /*jfieldID fid2 = (*env)->GetFieldID(env, cls, "kosdaq_cnt", "I");
-    (*env)->SetIntField(env, obj, fid2, kosdaq_cnt);*/
+        stockUnit = (*env)->GetObjectArrayElement(env, stockArr, i);
+        stockCls = (*env)->GetObjectClass(env, stockUnit);
+
+        /* code */
+        fid = (*env)->GetFieldID(env, stockCls, "code", "Ljava/lang/String;");
+        if( fid == 0 ) {
+            return;
+        }
+        jStr = (*env)->NewStringUTF(env, code);
+        if( jStr == NULL ) {
+            return;
+        }
+        (*env)->SetObjectField(env, stockUnit, fid, jStr);
+        (*env)->DeleteLocalRef(env, jStr);
+
+        /* price */
+        fid = (*env)->GetFieldID(env, stockCls, "price", "I");
+        if( fid == 0 ) {
+            return;
+        }
+        (*env)->SetIntField(env, stockUnit, fid, price);
+    }
 }
 
-JNIEXPORT void JNICALL Java_com_allgo_web_jni_RealJNI_updateRealCheg(JNIEnv *env, jobject obj, jobjectArray array)
+real_program_data *cur_program_data;
+
+JNIEXPORT void JNICALL Java_com_allgo_web_jni_RealJNI_updateRealProgram(JNIEnv *env, jobject obj, jobjectArray stockArr)
 {
-    kospi *kospi_data = (kospi *)shm_get(9, sizeof(struct kospi), 0);
+    cur_program_data = (real_program_data*) shm_get(REAL_PROGRAM_SHM, sizeof(real_program_data), SHM_READ);
 
-    kospi_data->cnt = 1500;
+    if(cur_program_data == NULL){
+        return;
+    }
 
-}
+    char code[6+1];
+    int price = 0;
 
-JNIEXPORT void JNICALL Java_com_allgo_web_jni_RealJNI_updateRealProgram(JNIEnv *env, jobject obj, jobjectArray array)
-{
-    kosdaq *kosdaq_data = (kosdaq *)shm_get(999, sizeof(struct kosdaq), 0);
+    jobject stockUnit;
+	jclass stockCls;
+	jfieldID fid;
+    jstring jStr;
 
-    kosdaq_data->cnt = 2500;
+    int i = 0;
+	for( i = 0; i < 3000; i++ ) {
+        real_program cur_program = cur_program_data->data[i];
+
+        memset(code, 0x00, sizeof(code));
+        memcpy(code, cur_program.code, 6);
+        price = cur_program.price;
+
+        stockUnit = (*env)->GetObjectArrayElement(env, stockArr, i);
+        stockCls = (*env)->GetObjectClass(env, stockUnit);
+
+        /* code */
+        fid = (*env)->GetFieldID(env, stockCls, "code", "Ljava/lang/String;");
+        if( fid == 0 ) {
+            return;
+        }
+        jStr = (*env)->NewStringUTF(env, code);
+        if( jStr == NULL ) {
+            return;
+        }
+        (*env)->SetObjectField(env, stockUnit, fid, jStr);
+        (*env)->DeleteLocalRef(env, jStr);
+
+        /* price */
+        fid = (*env)->GetFieldID(env, stockCls, "price", "I");
+        if( fid == 0 ) {
+            return;
+        }
+        (*env)->SetIntField(env, stockUnit, fid, price);
+    }
 }

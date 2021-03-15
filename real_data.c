@@ -111,7 +111,7 @@ void sendMsg(int sock, void* msg, uint32_t msgsize)
 int main()
 {
     int PORT = 8888;
-    int BUFFSIZE = 101;
+    int BUFFSIZE = 105;
     char buff[BUFFSIZE];
     char index[4];
     int ssock, csock;
@@ -132,10 +132,11 @@ int main()
         memset(buff, 0x00, BUFFSIZE);
         memset(index, 0x00, 4);
 
-        while ((read(ssock, index, 4)) > 0)
+        //while ((read(ssock, index, 4)) > 0)
+        while ((read(ssock, buff, BUFFSIZE)) > 0)
         {
-            printf("%d ", *((int*)index));
-            nread = read(ssock, buff, BUFFSIZE);
+            //printf("%d ", *((int*)index));
+            //nread = read(ssock, buff, BUFFSIZE);
             real_cheg *p = (real_cheg*) buff;
             memcpy(cur_cheg, buff, BUFFSIZE);
             /*printf("Received contents: [%.8s, %d, %d, %d, %.8s, %d, %d, %d]\n",
