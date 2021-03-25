@@ -19,7 +19,7 @@
 #define FILENAME "buf.txt"
 #define REAL_CHEG_DIR "data/real_cheg/"
 #define REAL_PROGRAM_DIR "data/real_program/"
-#define BUFFSIZE 105
+#define BUFFSIZE 200
 
 int main(int argc, char *argv[]) {
     struct sockaddr_in servaddr, cliaddr;
@@ -81,12 +81,12 @@ int main(int argc, char *argv[]) {
         //memcpy(cur_cheg, buf, BUFFSIZE);
         int index = p->index;
 
-        printf("[%.6s, %.6s, %d, %d, %d]\n", p->code, p->time, p->price, p->change_price, p->increase_rate);
+        printf("[%.6s, %.6s, %lf, %lf, %lf]\n", p->code, p->time, p->price, p->change_price, p->increase_rate);
         //printf("[%.6s, %.6s, %d, %d, %d]\n", cur_cheg->code, cur_cheg->time, cur_cheg->price, cur_cheg->change_price, cur_cheg->increase_rate);
 
         memcpy(&cur_cheg_data->data[index], buf, BUFFSIZE);
 
-        printf("[%.6s, %.6s, %d, %d, %d]\n", cur_cheg_data->data[index].code, cur_cheg_data->data[index].time, 
+        printf("[%.6s, %.6s, %lf, %lf, %lf]\n", cur_cheg_data->data[index].code, cur_cheg_data->data[index].time, 
             cur_cheg_data->data[index].price, cur_cheg_data->data[index].change_price, cur_cheg_data->data[index].increase_rate);
 
         memset(file_dir, 0x00, sizeof(file_dir));
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
             exit(1);
         }
 
-        fprintf(stream, "[%.6s, %.6s, %d, %d, %d]\n", p->code, p->time, p->price, p->change_price, p->increase_rate); //파일로 저장
+        fprintf(stream, "[%.6s, %.6s, %lf, %lf, %lf]\n", p->code, p->time, p->price, p->change_price, p->increase_rate); //파일로 저장
         fflush(stream);
         fclose(stream);
 

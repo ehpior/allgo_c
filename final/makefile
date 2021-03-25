@@ -1,23 +1,22 @@
 CC = gcc
-TARGET = a.out
+TARGET1 = recv_real_cheg
+TARGET2 = recv_real_program
 
 all : util.o recv_real_cheg.o recv_real_program.o
-    $(CC) -o cheg tmp/util.o tmp/recv_real_cheg.o
-    $(CC) -o program tmp/util.o tmp/recv_real_program.o
+	$(CC) -o cheg tmp/util.o tmp/recv_real_cheg.o
+	$(CC) -o program tmp/util.o tmp/recv_real_program.o
 
 util.o : util/util.c
-    $(CC) -c -o tmp/util.o util/util.c
+	$(CC) -c -o tmp/util.o util/util.c
 
 recv_real_cheg.o : recv_real_cheg.c
-    $(CC) -c -o tmp/recv_real_cheg.o recv_real_cheg.c -I/usr/include/mysql -lmysqlclient
-#	$(CC) -c -o tmp/recv_real_cheg.o recv_real_cheg.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient
+	$(CC) -c -o tmp/recv_real_cheg.o recv_real_cheg.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient
 
 recv_real_program.o : recv_real_program.c
-    $(CC) -c -o tmp/recv_real_program.o recv_real_program.c -I/usr/include/mysql -lmysqlclient
-#	$(CC) -c -o tmp/recv_real_program.o recv_real_program.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient
+	$(CC) -c -o tmp/recv_real_program.o recv_real_program.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient
 
 clean :
-    rm -f tmp/*
+	rm -f tmp/*
 
 #mysql.h 없을 시 다운
 #apt-get install libmysqlclient-dev
