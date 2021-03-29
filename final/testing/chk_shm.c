@@ -30,12 +30,13 @@ void main(int argc, char *argv[]){
 	real_cheg_data *cur_cheg_data = (real_cheg_data*) shm_get(REAL_CHEG_SHM, sizeof(real_cheg_data), SHM_READ);
 
     if(cur_cheg_data == NULL){
+	printf("shm_data NULL\n");
         return;
     }
 
 	int index = atoi(argv[1]);
 
-    printf("[%.6s, %.6s, %d, %d, %d]\n", cur_cheg_data->data[index].code, cur_cheg_data->data[index].time, 
+    printf("[%.6s, %.6s, %lf, %lf, %lf]\n", cur_cheg_data->data[index].code, cur_cheg_data->data[index].time, 
 		cur_cheg_data->data[index].price, cur_cheg_data->data[index].change_price, cur_cheg_data->data[index].increase_rate);
 
 }

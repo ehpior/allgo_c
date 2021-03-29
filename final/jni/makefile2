@@ -1,0 +1,5 @@
+#!/bin/bash
+
+gcc -shared -o libtestjni.dylib testjni.o
+
+gcc -shared -o librealjni.dylib RealJNI.o

@@ -90,6 +90,21 @@ void main(){
     }
 
 
+    int a = 1;
+    int n = 20;               ######################  계산날짜! 
+    double r = 0.9;
+    double discount_value = (1-r)/(a*(1-pow(r, n)));
+
+    double weighted_sum = 0.0;
+    double weighted_value = 0.0;
+
+    if len(data) < 20:
+        continue;
+        
+    for i in range(n):
+        weighted_value = a * (pow(r, (i+1))) * discount_value * list_of_day_score[i]; 
+        weighted_sum += weighted_value;
+
 
     if(mysql_query(&mysql, "USE allgo") )
     // mysql_query()는 query 수행시에 에러가 나게 되면
