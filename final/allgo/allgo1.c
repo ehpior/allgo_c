@@ -6,7 +6,7 @@
 
 #include "../common.h"
 
-void main(){
+void main(int argc, char *argv[]){
 
     MYSQL mysql;
     MYSQL_RES* res;
@@ -14,6 +14,13 @@ void main(){
     int fields;
     int cnt;
     char query[255];
+
+    char today[8];
+    memset(today, 0x00, 8);
+    sprintf(today, "%.8s", argv[1]);
+
+    printf("today is %.8s\n", today);
+
 
     mysql_init(&mysql);
 
@@ -34,7 +41,7 @@ void main(){
         return;
     }
 
-    double final_score[3000] = {0.0,};
+    float final_score[3000] = {0.0,};
 
     int i = 0;
 
@@ -42,15 +49,15 @@ void main(){
         if(cur_cheg_data->data[i].price <= 0){
             continue;
         }
-        int vp = cur_cheg_data->data[i].volume_power;
-        int inc_rate = cur_cheg_data->data[i].increase_rate;
-        int change_price = cur_cheg_data->data[i].change_price;
-        int open = cur_cheg_data->data[i].open;
-        int close = cur_cheg_data->data[i].price;
-        int high = cur_cheg_data->data[i].high;
-        int low = cur_cheg_data->data[i].low;
+        float vp = cur_cheg_data->data[i].volume_power;
+        float inc_rate = cur_cheg_data->data[i].increase_rate;
+        float change_price = cur_cheg_data->data[i].change_price;
+        float open = cur_cheg_data->data[i].open;
+        float close = cur_cheg_data->data[i].price;
+        float high = cur_cheg_data->data[i].high;
+        float low = cur_cheg_data->data[i].low;
 
-        double day_score = 0.0;
+        float day_score = 0.0;
         
         if(vp < 20 && vp >0){
             vp = 20;
@@ -58,7 +65,7 @@ void main(){
             vp = 180;
         }
         
-        double vari = (vp + 20) / 40.0;
+        float vari = (vp + 20) / 40.0;
             
         if(inc_rate < 0){
             day_score = (-1/(22-2*vari))*pow(inc_rate+1-vari,2) + 1-0.5*vari;
@@ -92,11 +99,11 @@ void main(){
 
     int a = 1;
     int n = 20;               ######################  계산날짜! 
-    double r = 0.9;
-    double discount_value = (1-r)/(a*(1-pow(r, n)));
+    float r = 0.9;
+    float discount_value = (1-r)/(a*(1-pow(r, n)));
 
-    double weighted_sum = 0.0;
-    double weighted_value = 0.0;
+    float weighted_sum = 0.0;
+    float weighted_value = 0.0;
 
     if len(data) < 20:
         continue;
@@ -121,7 +128,7 @@ void main(){
 
         memset(query, 0x00, 255);
 
-        sprintf(query, "insert into allgo1(date, code, score) values('%.8s','%.6s','%lf')", 
+        sprintf(query, "insert into allgo1(date, code, score) values('%.8s','%.6s','%f')", 
             "20210322", cur_cheg_data->data[i].code, final_score[i]);
 
         if(mysql_query(&mysql, query))

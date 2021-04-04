@@ -1,0 +1,10 @@
+CC = gcc
+TARGET = daily_cheg
+
+all : $(TARGET)
+
+$(TARGET):
+	$(CC) -o daily_cheg daily_cheg.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient
+
+clean :
+	rm $(TARGET)

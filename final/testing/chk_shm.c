@@ -36,7 +36,7 @@ void main(int argc, char *argv[]){
 
 	int index = atoi(argv[1]);
 
-    printf("[%.6s, %.6s, %lf, %lf, %lf]\n", cur_cheg_data->data[index].code, cur_cheg_data->data[index].time, 
+    printf("[%.6s, %.6s, %f, %f, %f]\n", cur_cheg_data->data[index].code, cur_cheg_data->data[index].time, 
 		cur_cheg_data->data[index].price, cur_cheg_data->data[index].change_price, cur_cheg_data->data[index].increase_rate);
 
 }

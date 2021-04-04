@@ -30,11 +30,23 @@ void main(int argc, char *argv[]){
 	real_cheg_data *cur_cheg_data = (real_cheg_data*) shm_get(REAL_CHEG_SHM, sizeof(real_cheg_data), SHM_READWRITE);
 
     if(cur_cheg_data == NULL){
+		printf("cheg null\n");
         return;
     }
 
     for(int i=0 ; i<3000; i++){
         memset(&cur_cheg_data->data[i], 0x00, sizeof(real_cheg));
-    }  
+    }
+
+	real_program_data *cur_program_data = (real_program_data*) shm_get(REAL_PROGRAM_SHM, sizeof(real_cheg_data), SHM_READWRITE);
+
+    if(cur_program_data == NULL){
+		printf("program null\n");
+        return;
+    }
+
+    for(int i=0 ; i<3000; i++){
+        memset(&cur_program_data->data[i], 0x00, sizeof(real_program));
+    } 
 
 }
