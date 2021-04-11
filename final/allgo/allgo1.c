@@ -6,56 +6,61 @@
 
 #include "../common.h"
 
-void main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
 
     MYSQL mysql;
     MYSQL_RES* res;
     MYSQL_ROW row;
     int fields;
     int cnt;
-    char query[255];
+    char query[1024];
 
-    char today[8];
-    memset(today, 0x00, 8);
+    char today[9];
+    memset(today, 0x00, 9);
     sprintf(today, "%.8s", argv[1]);
 
-    printf("today is %.8s\n", today);
+    printf("[success]today is %.8s\n", today);
+
+
+    real_cheg_data *cheg_data = (real_cheg_data*) shm_get(REAL_CHEG_SHM, sizeof(real_cheg_data), SHM_READ);
+
+    if(cheg_data == NULL){
+        printf("[error]shm_get\n");
+        exit(1);
+    }
+    printf("[success]SHM_ACCESS\n");
 
 
     mysql_init(&mysql);
 
-    if(!mysql_real_connect(&mysql, NULL, "jhk","wjdgusrl34", NULL ,3306, (char *)NULL, 0))
-    {
-        printf("%s\n",mysql_error(&mysql));
+    if(!mysql_real_connect(&mysql, NULL, "jhk","wjdgusrl34", NULL ,3306, (char *)NULL, 0)){
+        printf("[error]%s\n",mysql_error(&mysql));
         exit(1);
     }
-    printf("success\n");
+    printf("[success]DB_ACCESS\n");
 
 
-
-
-
-    real_cheg_data *cur_cheg_data = (real_cheg_data*)shm_get(REAL_CHEG_SHM, sizeof(real_cheg_data), SHM_READ);
-
-    if(cur_cheg_data == NULL){
-        return;
+    if(mysql_query(&mysql, "USE allgo")){
+        printf("[error]%s\n", mysql_error(&mysql));
+        exit(1);
     }
+
 
     float final_score[3000] = {0.0,};
 
     int i = 0;
 
     for(i=0 ; i<3000 ; i++){
-        if(cur_cheg_data->data[i].price <= 0){
+        if(cheg_data->data[i].price <= 0){
             continue;
         }
-        float vp = cur_cheg_data->data[i].volume_power;
-        float inc_rate = cur_cheg_data->data[i].increase_rate;
-        float change_price = cur_cheg_data->data[i].change_price;
-        float open = cur_cheg_data->data[i].open;
-        float close = cur_cheg_data->data[i].price;
-        float high = cur_cheg_data->data[i].high;
-        float low = cur_cheg_data->data[i].low;
+        float vp = cheg_data->data[i].volume_power;
+        float inc_rate = cheg_data->data[i].increase_rate;
+        float change_price = cheg_data->data[i].change_price;
+        float open = cheg_data->data[i].open;
+        float close = cheg_data->data[i].price;
+        float high = cheg_data->data[i].high;
+        float low = cheg_data->data[i].low;
 
         float day_score = 0.0;
         
@@ -97,7 +102,7 @@ void main(int argc, char *argv[]){
     }
 
 
-    int a = 1;
+    /*int a = 1;
     int n = 20;               ######################  계산날짜! 
     float r = 0.9;
     float discount_value = (1-r)/(a*(1-pow(r, n)));
@@ -109,31 +114,20 @@ void main(int argc, char *argv[]){
         continue;
         
     for i in range(n):
-        weighted_value = a * (pow(r, (i+1))) * discount_value * list_of_day_score[i]; 
-        weighted_sum += weighted_value;
+        weighted_value = a * (pow(r, i+1)) * discount_value * list_of_day_score[i]; 
+        weighted_sum += weighted_value;*/
 
 
-    if(mysql_query(&mysql, "USE allgo") )
-    // mysql_query()는 query 수행시에 에러가 나게 되면
-    // 0이 아닌 값을 리턴한다.
-    {
-        printf("%s\n", mysql_error(&mysql));
-        exit(1) ;
-    }
 
     for(i=0 ; i<3000 ; i++){
-        if(cur_cheg_data->data[i].price <= 0){
-            continue;
-        }
-
-        memset(query, 0x00, 255);
+        memset(query, 0x00, 1024);
 
         sprintf(query, "insert into allgo1(date, code, score) values('%.8s','%.6s','%f')", 
-            "20210322", cur_cheg_data->data[i].code, final_score[i]);
+            today, cheg_data->data[i].code, final_score[i]);
 
         if(mysql_query(&mysql, query))
         {
-            printf("%s\n", mysql_error(&mysql));
+            printf("[error]%s\n", mysql_error(&mysql));
             mysql_close(&mysql);
             exit(1);
         }
@@ -141,6 +135,8 @@ void main(int argc, char *argv[]){
         //printf("%d : %lf\n", i, final_score[i]);
     }
 
+    printf("[success]end\n");
     mysql_close(&mysql);
+    exit(0);
 }
 

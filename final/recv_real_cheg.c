@@ -13,6 +13,7 @@
 #include <netinet/in.h>
 #include <mysql.h>
 
+#include "hiredis.h"
 #include "common.h"
 
 #define BLOCK      255
@@ -33,6 +34,24 @@ int main(int argc, char *argv[]) {
         printf("usage: %s port\n", argv[0]);
         exit(0);
     }
+
+
+    redisContext *c;
+    redisReply *reply;
+
+    struct timeval timeout = { 1, 500000 }; // 1.5 seconds
+    c = redisConnectWithTimeout((char*)"127.0.0.1", 6379, timeout);
+    if (c->err) {
+        printf("Connection error: %s\n", c->errstr);
+        exit(1);
+    }
+
+    /* PING server */
+    reply = redisCommand(c,"AUTH wjdgusrl34");
+    printf("AUTH: %s\n", reply->str);
+    freeReplyObject(reply);
+
+
     
     //소켓 생성
     if((s = socket(PF_INET, SOCK_DGRAM, 0)) < 0) {
@@ -61,7 +80,8 @@ int main(int argc, char *argv[]) {
     }
     
     //저장용 파일 생성
-	
+	char redis_key[13];
+    char redis_value[13];
     while(1)
     {
         puts("Server : waiting request.");
@@ -72,22 +92,29 @@ int main(int argc, char *argv[]) {
             perror("recvfrom fail");
             exit(1);
         }
-        //buf[nbyte] = 0; //마지막 값에 0
 	
         printf("%d byte recv\n",nbyte);
 
         real_cheg *p = (real_cheg*) buf;
 
-        //memcpy(cur_cheg, buf, BUFFSIZE);
         int index = p->index;
 
-        printf("[%.6s, %.6s, %f, %f, %f]\n", p->code, p->time, p->price, p->change_price, p->increase_rate);
-        //printf("[%.6s, %.6s, %d, %d, %d]\n", cur_cheg->code, cur_cheg->time, cur_cheg->price, cur_cheg->change_price, cur_cheg->increase_rate);
+        //printf("[%.6s, %.6s, %f, %f, %f]\n", p->code, p->time, p->price, p->change_price, p->increase_rate);
 
         memcpy(&cur_cheg_data->data[index], buf, BUFFSIZE);
 
         printf("[%.6s, %.6s, %f, %f, %f]\n", cur_cheg_data->data[index].code, cur_cheg_data->data[index].time, 
             cur_cheg_data->data[index].price, cur_cheg_data->data[index].change_price, cur_cheg_data->data[index].increase_rate);
+
+
+        memset(redis_key, 0x00, 13);
+        memset(redis_value, 0x00, 13);
+        sprintf(redis_key, "stock:%.6s", p->code);
+        sprintf(redis_value, "%f", p->price);
+
+        reply = redisCommand(c,"SET %s %s", redis_key, redis_value);
+        printf("SET: %s\n", reply->str);
+        freeReplyObject(reply);
 
         memset(file_dir, 0x00, sizeof(file_dir));
         sprintf(file_dir, "%s%.6s", REAL_CHEG_DIR, p->code);
@@ -104,16 +131,6 @@ int main(int argc, char *argv[]) {
         puts("sendto complete");
     }
 
-	/*while(!feof(stream)) {
-		buf[0] = '\0';
-		fgets(buf, BLOCK, stream);
-		printf("Send : %s\n", buf);
-        //메시지 전송
-		if(sendto(s, buf, strlen(buf), 0, (struct sockaddr *)&cliaddr, addrlen) < 0) {
-			perror("sendto fail");
-			exit(0);
-		}
-	}*/
 	fclose(stream);
     close(s);
 	return 0;

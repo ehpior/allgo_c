@@ -18,7 +18,7 @@ int main(void) {
 
     /* PING server */
     reply = redisCommand(c,"AUTH wjdgusrl34");
-    printf("PING: %s\n", reply->str);
+    printf("AUTH: %s\n", reply->str);
     freeReplyObject(reply);
  
     /* PING server */
@@ -29,11 +29,6 @@ int main(void) {
     /* Set a key */
     reply = redisCommand(c,"SET %s %s", "foo", "hello world");
     printf("SET: %s\n", reply->str);
-    freeReplyObject(reply);
- 
-    /* Set a key using binary safe API */
-    reply = redisCommand(c,"SET %b %b", "bar", 3, "hello", 5);
-    printf("SET (binary API): %s\n", reply->str);
     freeReplyObject(reply);
  
     /* Try a GET and two INCR */

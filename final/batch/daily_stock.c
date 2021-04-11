@@ -84,3 +84,19 @@ int main(int argc, char* argv[])
     mysql_close(&mysql);
     exit(0);
 }
+
+int main(void)
+{
+	MYSQL *cons = mysql_init(NULL);
+	MYSQL_RES *sql_result;
+	MYSQL_ROW sql_row; // = char **sql_row; 2차원 배열 = 1차원 문자열 배열
+	loadmysql(MYSQLIP, cons);
+	mysql_query(cons, "select * from test.test");
+	sql_result = mysql_store_result(cons);
+	while (sql_row = mysql_fetch_row(sql_result)) { //값이 없을때까지 변환함
+		printf("%s %s %s\n", sql_row[0], sql_row[1], sql_row[2]);
+	}
+    mysql_free_result(sql_result);
+	getchar();
+	return 0;
+}
