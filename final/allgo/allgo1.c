@@ -102,8 +102,24 @@ int main(int argc, char *argv[]){
     }
 
 
+    memset(query, 0x00, 1024);
+    sprintf(query, "select * from allgo1");
+
+    if(mysql_query(&mysql, query)){   
+        printf("[error]%s\n", mysql_error(&mysql));
+    }   
+  
+    res = mysql_store_result(conn);   
+  
+    while(row = mysql_fetch_row(res))   
+    {   
+        printf("%s %s\n", row[0], row[1]);   
+    }   
+    mysql_free_result(res);   
+
+
     /*int a = 1;
-    int n = 20;               ######################  계산날짜! 
+    int n = 20;
     float r = 0.9;
     float discount_value = (1-r)/(a*(1-pow(r, n)));
 
@@ -116,7 +132,6 @@ int main(int argc, char *argv[]){
     for i in range(n):
         weighted_value = a * (pow(r, i+1)) * discount_value * list_of_day_score[i]; 
         weighted_sum += weighted_value;*/
-
 
 
     for(i=0 ; i<3000 ; i++){

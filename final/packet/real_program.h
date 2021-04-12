@@ -1,6 +1,4 @@
-/*
-	Á¾¸ñ¹èÄ¡
-*/
+
 #ifndef __real_program__
 #define __real_program__
 
@@ -10,23 +8,23 @@
 typedef struct real_program{
 
 	int index;		
-	char code[6];		// Á¾¸ñÄÚµå[6]
-	char time[6];   	// 0. Ã¼°á½Ã°£[6]
-	float price;   		// 1. ÇöÀç°¡
-	float plus_minus;   	// 2. ÀüÀÏ´ëºñ±âÈ£[1]
-	float change_price;   // 3. ÀüÀÏ´ëºñ
-	float increase_rate;  // 4. µî¶ôÀ²
-	float cul_volume;   	// 5. ´©Àû°Å·¡·®
-	float sell_volume;   	// 6. ¸Åµµ¼ö·®
-	float sell_amount;   	// 7. ¸Åµµ±İ¾×
-	float buy_volume;   	// 8. ¸Å¼ö¼ö·®
-	float buy_amount;   	// 9. ¸Å¼ö±İ¾×
-	float net_buy_volume; // 10. ¼ø¸Å¼ö¼ö·®
-	float net_buy_amount; // 11. ¼ø¸Å¼ö±İ¾×
-	float a1;   			// 12. ¼ø¸Å¼ö±İ¾×Áõ°¨
-	float a2;   			// 13. Àå½ÃÀÛ¿¹»óÀÜ¿©½Ã°£
-	float market;   		// 14. Àå¿î¿µ±¸ºĞ
-	float ticker;   		// 15. ÅõÀÚÀÚº°ticker
+	char code[6];		// ì¢…ëª©ì½”ë“œ[6]
+	char time[6];   	// 0. ì²´ê²°ì‹œê°„[6]
+	float price;   		// 1. í˜„ì¬ê°€
+	float plus_minus;   	// 2. ì „ì¼ëŒ€ë¹„ê¸°í˜¸[1]
+	float change_price;   // 3. ì „ì¼ëŒ€ë¹„
+	float increase_rate;  // 4. ë“±ë½ìœ¨
+	float cul_volume;   	// 5. ëˆ„ì ê±°ë˜ëŸ‰
+	float sell_volume;   	// 6. ë§¤ë„ìˆ˜ëŸ‰
+	float sell_amount;   	// 7. ë§¤ë„ê¸ˆì•¡
+	float buy_volume;   	// 8. ë§¤ìˆ˜ìˆ˜ëŸ‰
+	float buy_amount;   	// 9. ë§¤ìˆ˜ê¸ˆì•¡
+	float net_buy_volume; // 10. ìˆœë§¤ìˆ˜ìˆ˜ëŸ‰
+	float net_buy_amount; // 11. ìˆœë§¤ìˆ˜ê¸ˆì•¡
+	float a1;   			// 12. ìˆœë§¤ìˆ˜ê¸ˆì•¡ì¦ê°
+	float a2;   			// 13. ì¥ì‹œì‘ì˜ˆìƒì”ì—¬ì‹œê°„
+	float market;   		// 14. ì¥ìš´ì˜êµ¬ë¶„
+	float ticker;   		// 15. íˆ¬ììë³„ticker
 	
 } real_program;
 

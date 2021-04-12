@@ -1,6 +1,4 @@
-/*
-	Á¾¸ñ¹èÄ¡
-*/
+
 #ifndef __real_cheg__
 #define __real_cheg__
 
@@ -10,31 +8,31 @@
 typedef struct real_cheg{
 
 	int index;			// index
-	char code[6];		// Á¾¸ñÄÚµå[6]
-	char time[6];   	// 0. Ã¼°á½Ã°£[6]
-	float price;   		// 1. ÇöÀç°¡
-	float change_price;   // 2. ÀüÀÏ´ëºñ
-	float increase_rate; 	// 3. µî¶ôÀ²
-	float sell_1;      	// 4. ÃÖ¿ì¼± ¸ÅµµÈ£°¡
-	float buy_1;      	// 5. ÃÖ¿ì¼± ¸Å¼öÈ£°¡
-	float volume;      	// 6. °Å·¡·®
-	float cul_volume;   	// 7. ´©Àû°Å·¡·®
-	float cul_amount;   	// 8. ´©Àû°Å·¡´ë±İ
-	float open;      		// 9. ½Ã°¡
-	float high;      		// 10. °í°¡
-	float low;      		// 11. Àú°¡
-	float plus_minus;   	// 12. ÀüÀÏ´ëºñ±âÈ£[1]
-	float a1;      		// 13. ÀüÀÏ°Å·¡·®´ëºñ
-	float a2;      		// 14. °Å·¡´ë±İÁõ°¨
-	float a3;      		// 15. ÀüÀÏ°Å·¡·®´ëºñ(ºñÀ²)
-	float turn_over;   	// 16. °Å·¡È¸ÀüÀ²
-	float a4;      		// 17. °Å·¡ºñ¿ë
-	float volume_power;   // 18. Ã¼°á°­µµ
-	float capitalization; // 19. ½Ã°¡ÃÑ¾×(¾ï)
-	float market;      	// 20. Àå±¸ºĞ
-	float a5;      		// 21. KOÁ¢±Ùµµ
-	float high_time;   	// 22. »óÇÑ°¡¹ß»ı½Ã°£
-	float low_time;      	// 23. ÇÏÇÑ°¡¹ß»ı±â°£
+	char code[6];		// ì¢…ëª©ì½”ë“œ[6]
+	char time[6];   	// 0. ì²´ê²°ì‹œê°„[6]
+	float price;   		// 1. í˜„ì¬ê°€
+	float change_price;   // 2. ì „ì¼ëŒ€ë¹„
+	float increase_rate; 	// 3. ë“±ë½ìœ¨
+	float sell_1;      	// 4. ìµœìš°ì„  ë§¤ë„í˜¸ê°€
+	float buy_1;      	// 5. ìµœìš°ì„  ë§¤ìˆ˜í˜¸ê°€
+	float volume;      	// 6. ê±°ë˜ëŸ‰
+	float cul_volume;   	// 7. ëˆ„ì ê±°ë˜ëŸ‰
+	float cul_amount;   	// 8. ëˆ„ì ê±°ë˜ëŒ€ê¸ˆ
+	float open;      		// 9. ì‹œê°€
+	float high;      		// 10. ê³ ê°€
+	float low;      		// 11. ì €ê°€
+	float plus_minus;   	// 12. ì „ì¼ëŒ€ë¹„ê¸°í˜¸[1]
+	float a1;      		// 13. ì „ì¼ê±°ë˜ëŸ‰ëŒ€ë¹„
+	float a2;      		// 14. ê±°ë˜ëŒ€ê¸ˆì¦ê°
+	float a3;      		// 15. ì „ì¼ê±°ë˜ëŸ‰ëŒ€ë¹„(ë¹„ìœ¨)
+	float turn_over;   	// 16. ê±°ë˜íšŒì „ìœ¨
+	float a4;      		// 17. ê±°ë˜ë¹„ìš©
+	float volume_power;   // 18. ì²´ê²°ê°•ë„
+	float capitalization; // 19. ì‹œê°€ì´ì•¡(ì–µ)
+	float market;      	// 20. ì¥êµ¬ë¶„
+	float a5;      		// 21. KOì ‘ê·¼ë„
+	float high_time;   	// 22. ìƒí•œê°€ë°œìƒì‹œê°„
+	float low_time;      	// 23. í•˜í•œê°€ë°œìƒê¸°ê°„
 	
 } real_cheg;
 
