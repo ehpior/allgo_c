@@ -38,7 +38,7 @@ typedef struct real_cheg{
 
 typedef struct real_cheg_data{
 	int data_cnt;
-	real_cheg data[3000];
+	real_cheg data[5000];
 } real_cheg_data;
 
 #pragma pack()

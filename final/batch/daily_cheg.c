@@ -27,34 +27,31 @@ int main(int argc, char* argv[])
 
     printf("[success]today is %.8s\n", today);
 
+    mysql_init(&mysql);
+
+    if(!mysql_real_connect(&mysql, NULL, "jhk","wjdgusrl34", NULL ,3306, (char *)NULL, 0))
+    {
+        printf("%s\n",mysql_error(&mysql));
+        return 1;
+    }
+    printf("DB_ACCESS success\n");
 
     real_cheg_data *data = (real_cheg_data*) shm_get(REAL_CHEG_SHM, sizeof(real_cheg_data), SHM_READ);
 
     if(data == NULL){
-        printf("[error]shm_get\n");
-        exit(1);
+        return 1;
     }
-    printf("[success]SHM_ACCESS\n");
+    printf("SHM_ACCESS success\n");
 
-
-    mysql_init(&mysql);
-
-    if(!mysql_real_connect(&mysql, NULL, "jhk","wjdgusrl34", NULL ,3306, (char *)NULL, 0)){
-        printf("[error]%s\n",mysql_error(&mysql));
-        exit(1);
-    }
-    printf("[success]DB_ACCESS\n");
-
-
-    if(mysql_query(&mysql, "USE allgo")){
-        printf("[error]%s\n", mysql_error(&mysql));
-        exit(1);
+    if(mysql_query(&mysql, "USE allgo") ){
+        printf("%s\n", mysql_error(&mysql));
+        return 1;
     }
 
 
     int i=0;
 
-    for(i=0; i<3000; i++){
+    for(i=0; i<5000; i++){
 
         real_cheg cheg = data->data[i];
 
@@ -75,12 +72,13 @@ int main(int argc, char* argv[])
         if(mysql_query(&mysql, query) )
         {
             printf("%s\n", mysql_error(&mysql));
-            exit(1);
+            return 1;
         }
     }
     
     
-    printf("[success]end\n");
+    printf("success\n");    
     mysql_close(&mysql);
-    exit(0);
+    return 0;
+
 }

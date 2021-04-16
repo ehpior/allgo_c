@@ -34,7 +34,7 @@ void main(int argc, char *argv[]){
         return;
     }
 
-    for(int i=0 ; i<3000; i++){
+    for(int i=0 ; i<5000; i++){
         memset(&cur_cheg_data->data[i], 0x00, sizeof(real_cheg));
     }
 
@@ -45,7 +45,7 @@ void main(int argc, char *argv[]){
         return;
     }
 
-    for(int i=0 ; i<3000; i++){
+    for(int i=0 ; i<5000; i++){
         memset(&cur_program_data->data[i], 0x00, sizeof(real_program));
     } 
 

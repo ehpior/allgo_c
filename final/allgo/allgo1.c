@@ -46,11 +46,11 @@ int main(int argc, char *argv[]){
     }
 
 
-    float final_score[3000] = {0.0,};
+    float final_score[5000] = {0.0,};
 
     int i = 0;
 
-    for(i=0 ; i<3000 ; i++){
+    for(i=0 ; i<5000 ; i++){
         if(cheg_data->data[i].price <= 0){
             continue;
         }
@@ -134,7 +134,7 @@ int main(int argc, char *argv[]){
         weighted_sum += weighted_value;*/
 
 
-    for(i=0 ; i<3000 ; i++){
+    for(i=0 ; i<5000 ; i++){
         memset(query, 0x00, 1024);
 
         sprintf(query, "insert into allgo1(date, code, score) values('%.8s','%.6s','%f')", 

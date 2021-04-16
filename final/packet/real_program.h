@@ -30,7 +30,7 @@ typedef struct real_program{
 
 typedef struct real_program_data{
 	int data_cnt;
-	real_program data[3000];
+	real_program data[5000];
 } real_program_data;
 
 #pragma pack()
