@@ -62,11 +62,13 @@ int main(int argc, char* argv[])
         memset(query, 0x00, 9192);
 
         sprintf(query, "insert into STOCK_CHEG(date, code, price, change_price, \
-                    increase_rate, cul_volume, cul_amount, open, high, low, turn_over, volume_power, \
+                    increase_rate, cul_volume, cul_amount, open, high, low, \
+                    a1, a2, a3, turn_over, volume_power, \
                     capitalization, market, high_time, low_time)\
                 values('%.8s','%.6s', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f')",\
                     today, cheg.code, cheg.price, cheg.change_price, \
-                    cheg.increase_rate, cheg.cul_volume, cheg.cul_amount, cheg.open, cheg.high, cheg.low, cheg.turn_over, cheg.volume_power,\
+                    cheg.increase_rate, cheg.cul_volume, cheg.cul_amount, cheg.open, cheg.high, cheg.low, \
+                    cheg.a1, cheg.a2, cheg.a3, cheg.turn_over, cheg.volume_power,\
                     cheg.capitalization, cheg.market, cheg.high_time, cheg.low_time);
 
         if(mysql_query(&mysql, query) )
