@@ -102,7 +102,7 @@ int main(int argc, char *argv[]){
     }
 
 
-    memset(query, 0x00, 1024);
+    /*memset(query, 0x00, 1024);
     sprintf(query, "select * from allgo1");
 
     if(mysql_query(&mysql, query)){   
@@ -115,7 +115,7 @@ int main(int argc, char *argv[]){
     {   
         printf("%s %s\n", row[0], row[1]);   
     }   
-    mysql_free_result(res);   
+    mysql_free_result(res);  */
 
 
     /*int a = 1;
@@ -136,6 +136,10 @@ int main(int argc, char *argv[]){
 
     for(i=0 ; i<5000 ; i++){
         memset(query, 0x00, 1024);
+        
+        if(cheg_data->data[i].price <= 0){
+            continue;
+        }
 
         sprintf(query, "insert into allgo1(date, code, score) values('%.8s','%.6s','%f')", 
             today, cheg_data->data[i].code, final_score[i]);
