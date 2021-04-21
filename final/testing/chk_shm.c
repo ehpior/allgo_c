@@ -60,4 +60,27 @@ a5 \t\t: %f\nhigh_time \t: %f\nlow_time \t: %f\n\n",
             break;
             }
     }
+    
+    real_program_data *data2 = (real_program_data*) shm_get(REAL_PROGRAM_SHM, sizeof(real_program_data), SHM_READ);
+
+    if(data2 == NULL){
+        printf("shm_data NULL\n");
+        return;
+    }
+
+    for(index=0 ; index<5000 ; index++){
+        if(!strncmp(code, data2->data[index].code, 6)){
+            printf("\nindex \t\t: %d\ncode \t\t: %.6s\ntime \t\t: %.6s\nprice \t\t: %f\nplus_minus \t: %f\nchange_price \t: %f\n\
+increase_rate \t: %f\ncul_volume \t: %f\nsell_volume \t: %f\nsell_amount \t: %f\nbuy_volume \t: %f\n\
+buy_amount \t: %f\nnet_buy_volume \t: %f\nnet_buy_amount \t: %f\na1 \t\t: %f\na2 \t\t: %f\nmarket \t\t: %f\nticker \t\t: %f\n\n",
+                data2->data[index].index, data2->data[index].code, data2->data[index].time,
+                data2->data[index].price, data2->data[index].plus_minus, data2->data[index].change_price,
+                data2->data[index].increase_rate, data2->data[index].cul_volume, data2->data[index].sell_volume,
+                data2->data[index].sell_amount, data2->data[index].buy_volume, data2->data[index].buy_amount,
+                data2->data[index].net_buy_volume, data2->data[index].net_buy_amount, data2->data[index].a1,
+                data2->data[index].a2, data2->data[index].market, data2->data[index].ticker);
+            break;
+        }
+     }
+
 }
