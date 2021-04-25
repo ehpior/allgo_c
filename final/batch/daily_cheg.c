@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 
         real_cheg cheg = data->data[i];
 
-        if(cheg.price <= 0){
+        if(cheg.cul_volume <= 0){
             continue;
         }
 

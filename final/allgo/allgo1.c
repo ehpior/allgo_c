@@ -51,7 +51,7 @@ int main(int argc, char *argv[]){
     int i = 0;
 
     for(i=0 ; i<5000 ; i++){
-        if(cheg_data->data[i].price <= 0){
+        if(cheg_data->data[i].cul_volume <= 0){
             continue;
         }
         float vp = cheg_data->data[i].volume_power;
@@ -137,7 +137,7 @@ int main(int argc, char *argv[]){
     for(i=0 ; i<5000 ; i++){
         memset(query, 0x00, 1024);
         
-        if(cheg_data->data[i].price <= 0){
+        if(cheg_data->data[i].cul_volume <= 0){
             continue;
         }
 
