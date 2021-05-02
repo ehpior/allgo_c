@@ -141,7 +141,7 @@ int main(int argc, char *argv[]){
             continue;
         }
 
-        sprintf(query, "insert into allgo1(date, code, score) values('%.8s','%.6s','%f')", 
+        sprintf(query, "insert into AG_SCORE(date, type, code, score) values('%.8s','A','%.6s','%f')", 
             today, cheg_data->data[i].code, final_score[i]);
 
         if(mysql_query(&mysql, query))

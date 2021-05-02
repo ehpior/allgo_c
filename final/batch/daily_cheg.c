@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
                 values('%.8s','%.6s', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f')",\
                     today, cheg.code, cheg.price, cheg.change_price, \
                     cheg.increase_rate, cheg.cul_volume, cheg.cul_amount, cheg.open, cheg.high, cheg.low, \
-                    cheg.a1, cheg.a2, cheg.a3, cheg.turn_over, cheg.volume_power,\
+                    cheg.a1, cheg.a2/1000000, cheg.a3, cheg.turn_over, cheg.volume_power,\
                     cheg.capitalization, cheg.market, cheg.high_time, cheg.low_time);
 
         if(mysql_query(&mysql, query) )
