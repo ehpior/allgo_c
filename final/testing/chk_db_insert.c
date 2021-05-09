@@ -21,8 +21,8 @@ void main(void)
     printf("success\n");
 
     if(mysql_query(&mysql, "USE allgo") )
-    // mysql_query()´Â query ¼öÇà½Ã¿¡ ¿¡·¯°¡ ³ª°Ô µÇ¸é
-    // 0ÀÌ ¾Æ´Ñ °ªÀ» ¸®ÅÏÇÑ´Ù.
+    // mysql_query()ëŠ” query ìˆ˜í–‰ì‹œì— ì—ëŸ¬ê°€ ë‚˜ê²Œ ë˜ë©´
+    // 0ì´ ì•„ë‹Œ ê°’ì„ ë¦¬í„´í•œë‹¤.
     {
         printf("%s\n", mysql_error(&mysql));
         exit(1) ;

@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 
     int i=0;
 
-    for(i=0; i<5000; i++){
+    for(i=0; i<3000; i++){
 
         real_program program = data->data[i];
 

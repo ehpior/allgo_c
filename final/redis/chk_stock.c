@@ -26,14 +26,9 @@ int main(void) {
     printf("PING: %s\n", reply->str);
     freeReplyObject(reply);
  
-    /* Set a key */
-    reply = redisCommand(c,"SET %s %s", "foo", "hello world");
-    printf("SET: %s\n", reply->str);
-    freeReplyObject(reply);
- 
     /* Try a GET and two INCR */
-    reply = redisCommand(c,"GET foo");
-    printf("GET foo: %s\n", reply->str);
+    reply = redisCommand(c,"GET stock:005930");
+    printf("GET: %s\n", reply->str);
     freeReplyObject(reply);
  
     return 0;

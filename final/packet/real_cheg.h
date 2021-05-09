@@ -1,4 +1,6 @@
-
+/*
+	종목배치
+*/
 #ifndef __real_cheg__
 #define __real_cheg__
 

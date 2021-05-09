@@ -1,19 +1,19 @@
 CC = gcc
-TARGET1 = recv_real_cheg
-TARGET2 = recv_real_program
+TARGET1 = cheg
+TARGET2 = program
 
-all : util.o recv_real_cheg.o recv_real_program.o
-	$(CC) -o cheg tmp/util.o tmp/recv_real_cheg.o
-	$(CC) -o program tmp/util.o tmp/recv_real_program.o
+all : util.o cheg.o program.o
+	$(CC) -o cheg tmp/util.o tmp/cheg.o -I /usr/local/include/hiredis/ -lhiredis
+	$(CC) -o program tmp/util.o tmp/program.o -I /usr/local/include/hiredis/ -lhiredis
 
 util.o : util/util.c
 	$(CC) -c -o tmp/util.o util/util.c
 
-recv_real_cheg.o : recv_real_cheg.c
-	$(CC) -c -o tmp/recv_real_cheg.o recv_real_cheg.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient
+cheg.o : cheg.c
+	$(CC) -c -o tmp/cheg.o cheg.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient -I /usr/local/include/hiredis/ -lhiredis
 
-recv_real_program.o : recv_real_program.c
-	$(CC) -c -o tmp/recv_real_program.o recv_real_program.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient
+program.o : program.c
+	$(CC) -c -o tmp/program.o program.c -I/usr/local/include/mysql -L/usr/local/lib/mysql -lmysqlclient -I /usr/local/include/hiredis/ -lhiredis
 
 clean :
 	rm -f tmp/*

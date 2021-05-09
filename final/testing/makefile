@@ -1,6 +1,6 @@
 CC = gcc
 TARGET = chk_db
-TARGET2 = chk_shm_cheg
+TARGET2 = chk_shm
 TARGET3 = clear_shm
 
 all : $(TARGET) $(TARGET2) $(TARGET3)

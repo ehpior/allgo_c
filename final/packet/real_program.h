@@ -1,4 +1,6 @@
-
+/*
+	종목배치
+*/
 #ifndef __real_program__
 #define __real_program__
 
