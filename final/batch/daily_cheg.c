@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 
         memset(query, 0x00, 9192);
 
-        sprintf(query, "insert into STOCK_CHEG(date, code, price, change_price, \
+        sprintf(query, "insert into stock_cheg(date, code, price, change_price, \
                     increase_rate, cul_volume, cul_amount, open, high, low, \
                     a1, a2, a3, turn_over, volume_power, \
                     capitalization, market, high_time, low_time)\

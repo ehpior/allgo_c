@@ -59,7 +59,7 @@ int main(int argc, char *argv[]){
 
         float score = program.net_buy_amount / cheg_data->data[i].capitalization;
 
-        sprintf(query, "insert into AG_SCORE(date, type, code, score) values('%.8s','B','%.6s','%.2f')", 
+        sprintf(query, "insert into ag_score(date, type, code, score) values('%.8s','B','%.6s','%.2f')", 
             today, cheg_data->data[i].code, score);
 
         if(mysql_query(&mysql, query))

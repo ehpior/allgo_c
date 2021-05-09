@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 
         memset(query, 0x00, 9192);
 
-	sprintf(query, "insert into STOCK_PROGRAM(date, code, sell_volume, \
+	sprintf(query, "insert into stock_program(date, code, sell_volume, \
                     sell_amount, buy_volume, buy_amount, net_buy_volume, \
                     net_buy_amount, market, ticker)\
                 values('%.8s','%.6s', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f')",\
