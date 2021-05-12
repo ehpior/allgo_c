@@ -56,6 +56,9 @@ int main(int argc, char *argv[]){
         if(program.sell_volume <= 0){
             continue;
         }
+	if(cheg_data->data[i].capitalization <= 0){
+	    continue;
+	}
 
         float score = program.net_buy_amount / cheg_data->data[i].capitalization;
 

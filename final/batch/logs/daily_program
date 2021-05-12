@@ -42,3 +42,14 @@ SHM_ACCESS success
 DB_ACCESS success
 SHM_ACCESS success
 [success]end
+dyld: Library not loaded: /usr/local/opt/mysql/lib/libmysqlclient.21.dylib
+  Referenced from: /Users/jhk/hk/final/batch/./daily_program
+  Reason: image not found
+[success]today is 20210511
+DB_ACCESS success
+SHM_ACCESS success
+[success]end
+[success]today is 20210512
+DB_ACCESS success
+SHM_ACCESS success
+Duplicate entry '20210512-181340' for key 'PRIMARY'

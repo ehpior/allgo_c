@@ -42,3 +42,17 @@ success
 DB_ACCESS success
 SHM_ACCESS success
 success
+dyld: Library not loaded: /usr/local/opt/mysql/lib/libmysqlclient.21.dylib
+  Referenced from: /Users/jhk/hk/final/batch/./daily_cheg
+  Reason: image not found
+dyld: Library not loaded: /usr/local/opt/mysql/lib/libmysqlclient.21.dylib
+  Referenced from: /Users/jhk/hk/final/batch/./daily_cheg
+  Reason: image not found
+[success]today is 20210511
+DB_ACCESS success
+SHM_ACCESS success
+success
+[success]today is 20210512
+DB_ACCESS success
+SHM_ACCESS success
+success

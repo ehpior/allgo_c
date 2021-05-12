@@ -46,3 +46,14 @@
 [success]SHM_ACCESS
 [success]DB_ACCESS
 [success]end
+dyld: Library not loaded: /usr/local/opt/mysql/lib/libmysqlclient.21.dylib
+  Referenced from: /Users/jhk/hk/final/allgo/./allgo1
+  Reason: image not found
+[success]today is 20210511
+[success]SHM_ACCESS
+[success]DB_ACCESS
+[success]end
+[success]today is 20210512
+[success]SHM_ACCESS
+[success]DB_ACCESS
+[success]end
