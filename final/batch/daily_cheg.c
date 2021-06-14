@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
         if(mysql_query(&mysql, query) )
         {
             printf("%s\n", mysql_error(&mysql));
-            return 1;
+            //return 1;
         }
     }
     

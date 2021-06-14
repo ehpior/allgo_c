@@ -48,10 +48,9 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-
     int i=0;
 
-    for(i=0; i<3000; i++){
+    for(i=0; i<5000; i++){
 
         real_program program = data->data[i];
 
@@ -72,7 +71,7 @@ int main(int argc, char* argv[])
         if(mysql_query(&mysql, query) )
         {
             printf("%s\n", mysql_error(&mysql));
-            return 1;
+            //return 1;
         }
     }
 
